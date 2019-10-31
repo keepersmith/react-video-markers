@@ -88,7 +88,9 @@ function VideoPlayer(props: IProps) {
           // Autoplay was prevented.
           console.log("NOOOO GOGO");
           // Show a "Play" button so that user can start playback.
-          seekToPlayer();
+          //isPlaying = false;
+          playerEl.current.pause();
+          //seekToPlayer();
         });
       }
     } else {
