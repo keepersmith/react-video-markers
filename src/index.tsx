@@ -37,7 +37,7 @@ function VideoPlayer(props: IProps) {
     controls = ['play', 'time', 'progress', 'volume', 'full-screen'],
     height = '360px',
     width = '640px',
-    //isPlaying = false,
+    isPlaying = false,
     volume = 0.7,
     loop = false,
     markers = [],
@@ -49,7 +49,7 @@ function VideoPlayer(props: IProps) {
     onDuration = () => {},
     onMarkerClick = () => {}
   } = props;
-  var { isPlaying } = props;
+  //var { isPlaying } = props;
 
   useEffect(() => {
     playerEl.current.addEventListener('timeupdate', handleProgress);
@@ -66,8 +66,9 @@ function VideoPlayer(props: IProps) {
         }).catch(error => {
           // Autoplay was prevented.
           // Show a "Play" button so that user can start playback.
-          isPlaying = false;
-          playerEl.current.pause();
+          onPause();
+          //isPlaying = false;
+          //playerEl.current.pause();
         });
       }
     }
@@ -99,8 +100,9 @@ function VideoPlayer(props: IProps) {
           // Autoplay was prevented.
           console.log("NOOOO GOGO");
           // Show a "Play" button so that user can start playback.
-          isPlaying = false;
-          playerEl.current.pause();
+          onPause();
+          //isPlaying = false;
+          //playerEl.current.pause();
           //onPause();
           //seekToPlayer();
         });
