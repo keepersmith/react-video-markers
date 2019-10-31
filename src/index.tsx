@@ -49,7 +49,6 @@ function VideoPlayer(props: IProps) {
     onDuration = () => {},
     onMarkerClick = () => {}
   } = props;
-  //var { isPlaying } = props;
 
   useEffect(() => {
     playerEl.current.addEventListener('timeupdate', handleProgress);
@@ -67,8 +66,6 @@ function VideoPlayer(props: IProps) {
           // Autoplay was prevented.
           // Show a "Play" button so that user can start playback.
           onPause();
-          //isPlaying = false;
-          //playerEl.current.pause();
         });
       }
     }
@@ -87,24 +84,16 @@ function VideoPlayer(props: IProps) {
   }, [timeStart]);
 
   useEffect(() => {
-    console.log("RVM 2");
     //isPlaying ? playerEl.current.play() : playerEl.current.pause();
     if (isPlaying) {
       let promise = playerEl.current.play();
       if (promise !== undefined) {
         promise.then(_ => {
-          console.log("GOGO");
           // Autoplay started!
-          //this.handlePlay();
         }).catch(error => {
           // Autoplay was prevented.
-          console.log("NOOOO GOGO");
           // Show a "Play" button so that user can start playback.
           onPause();
-          //isPlaying = false;
-          //playerEl.current.pause();
-          //onPause();
-          //seekToPlayer();
         });
       }
     } else {
