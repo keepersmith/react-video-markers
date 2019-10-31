@@ -76,7 +76,25 @@ function VideoPlayer(props: IProps) {
 
   useEffect(() => {
     console.log("RVM 2");
-    isPlaying ? playerEl.current.play() : playerEl.current.pause();
+    //isPlaying ? playerEl.current.play() : playerEl.current.pause();
+    if (isPlaying) {
+      let promise = playerEl.current.play();
+      if (promise !== undefined) {
+        promise.then(_ => {
+          console.log("GOGO");
+          // Autoplay started!
+          //this.handlePlay();
+        }).catch(error => {
+          // Autoplay was prevented.
+          console.log("NOOOO GOGO");
+          // Show a "Play" button so that user can start playback.
+          seekToPlayer();
+        });
+      }
+    } else {
+      playerEl.current.pause();
+    }
+    
   }, [isPlaying]);
 
   useEffect(() => {
