@@ -37,7 +37,7 @@ function VideoPlayer(props: IProps) {
     controls = ['play', 'time', 'progress', 'volume', 'full-screen'],
     height = '360px',
     width = '640px',
-    isPlaying = false,
+    //isPlaying = false,
     volume = 0.7,
     loop = false,
     markers = [],
@@ -49,6 +49,7 @@ function VideoPlayer(props: IProps) {
     onDuration = () => {},
     onMarkerClick = () => {}
   } = props;
+  var { isPlaying } = props;
 
   useEffect(() => {
     playerEl.current.addEventListener('timeupdate', handleProgress);
@@ -57,8 +58,18 @@ function VideoPlayer(props: IProps) {
       seekToPlayer();
     }
     if (isPlaying) {
-      console.log("RVM 1");
-      playerEl.current.play();
+      //playerEl.current.play();
+      let promise = playerEl.current.play();
+      if (promise !== undefined) {
+        promise.then(_ => {
+          // Autoplay started!
+        }).catch(error => {
+          // Autoplay was prevented.
+          // Show a "Play" button so that user can start playback.
+          isPlaying = false;
+          playerEl.current.pause();
+        });
+      }
     }
 
     return () => {
@@ -88,8 +99,9 @@ function VideoPlayer(props: IProps) {
           // Autoplay was prevented.
           console.log("NOOOO GOGO");
           // Show a "Play" button so that user can start playback.
-          //isPlaying = false;
+          isPlaying = false;
           playerEl.current.pause();
+          //onPause();
           //seekToPlayer();
         });
       }
