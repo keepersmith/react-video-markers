@@ -57,6 +57,7 @@ function VideoPlayer(props: IProps) {
       seekToPlayer();
     }
     if (isPlaying) {
+      console.log("RVM 1");
       playerEl.current.play();
     }
 
@@ -74,6 +75,7 @@ function VideoPlayer(props: IProps) {
   }, [timeStart]);
 
   useEffect(() => {
+    console.log("RVM 2");
     isPlaying ? playerEl.current.play() : playerEl.current.pause();
   }, [isPlaying]);
 
