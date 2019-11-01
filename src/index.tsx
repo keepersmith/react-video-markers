@@ -231,7 +231,7 @@ function VideoPlayer(props: IProps) {
         onClick={handlePlayerClick}
         playsInline
         poster={poster_url}
-        muted
+        controls
       >
         <source src={url} type="video/mp4" />
       </video>
