@@ -82,10 +82,13 @@ function VideoPlayer(props: IProps) {
 
     if (startMuted) {
       console.log("STARTING MUTED");
-      onVolume(DEFAULT_VOLUME);
+      //onVolume(DEFAULT_VOLUME);
       playerEl.current.defaultMuted = true;
+      playerEl.current.muted = true;
+      setVolume(0);
+      //setMuted(true);
       //setVolume(DEFAULT_VOLUME);
-      setMuted(true);
+      //setMuted(true);
       //playerEl.current.muted = true;
       //setVolume(0);
       
