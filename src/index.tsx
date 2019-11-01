@@ -47,6 +47,14 @@ function VideoPlayer(props: IProps) {
   
   
   const playerEl = useRef<HTMLVideoElement>(null);
+  if (startMuted) {
+    console.log("STARTING MUTED");
+    playerEl.current.defaultMuted = true;
+    playerEl.current.muted = true;
+    this.setVolume(0);
+    this.setMuted(true);
+  }
+  
   const progressEl = useRef<HTMLProgressElement>(null);
   const volumeEl = useRef<HTMLProgressElement>(null);
 
@@ -77,12 +85,14 @@ function VideoPlayer(props: IProps) {
         });
       }
     }
-
+    
+    /*
     if (muted) {
       playerEl.current.muted = true;
       setVolume(0);
       setMuted(true);
     }
+    */
     
     return () => {
       playerEl.current.removeEventListener('timeupdate', handleProgress);
@@ -233,6 +243,17 @@ function VideoPlayer(props: IProps) {
 
   return (
     <div className="react-video-wrap" style={{ height, width }}>
+        <video
+          ref={playerEl}
+          className="react-video-player"
+          loop={loop}
+          onClick={handlePlayerClick}
+          playsInline
+          poster={poster_url}
+        >
+          <source src={url} type="video/mp4" />
+        </video>
+    {/*
       {startMuted ? (
         <video
           ref={playerEl}
@@ -257,6 +278,7 @@ function VideoPlayer(props: IProps) {
           <source src={url} type="video/mp4" />
         </video>
       )}
+      */}
       {isFullScreen ? (
         <button className="react-video-close" onClick={handleFullScreenClick}>
           Close video
