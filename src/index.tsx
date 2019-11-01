@@ -29,7 +29,8 @@ function VideoPlayer(props: IProps) {
 
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [videoDuration, setVideoDuration] = useState<number>(null);
-  const [muted, setMuted] = useState<boolean>(false);
+  //const [muted, setMuted] = useState<boolean>(false);
+  const [muted, setMuted] = useState<boolean>(true);
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
   const {
@@ -62,9 +63,11 @@ function VideoPlayer(props: IProps) {
       if (promise !== undefined) {
         promise.then(_ => {
           // Autoplay started!
+          console.log("RVP 1 GO");
         }).catch(error => {
           // Autoplay was prevented.
           // Show a "Play" button so that user can start playback.
+          console.log("RVP 1 NO GO");
           onPause();
         });
       }
@@ -90,9 +93,11 @@ function VideoPlayer(props: IProps) {
       if (promise !== undefined) {
         promise.then(_ => {
           // Autoplay started!
+          console.log("RVP 2 GO");
         }).catch(error => {
           // Autoplay was prevented.
           // Show a "Play" button so that user can start playback.
+          console.log("RVP 2 NO GO");
           onPause();
         });
       }
@@ -223,6 +228,7 @@ function VideoPlayer(props: IProps) {
         loop={loop}
         onClick={handlePlayerClick}
         playsInline
+        muted
       >
         <source src={url} type="video/mp4" />
       </video>
