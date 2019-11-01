@@ -222,6 +222,7 @@ function VideoPlayer(props: IProps) {
         className="react-video-player"
         loop={loop}
         onClick={handlePlayerClick}
+        playsInline
       >
         <source src={url} type="video/mp4" />
       </video>
