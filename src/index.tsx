@@ -53,8 +53,6 @@ function VideoPlayer(props: IProps) {
   const [videoDuration, setVideoDuration] = useState<number>(null);
   const [muted, setMuted] = useState<boolean>(false);
   
-  //const [muted, setMuted] = useState<boolean>(startMuted); // should be passed in as true for iOS
-  console.log("MUTED, STARTMUTED",muted,startMuted);
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -82,26 +80,10 @@ function VideoPlayer(props: IProps) {
 
     if (startMuted) {
       console.log("STARTING MUTED");
-      //onVolume(DEFAULT_VOLUME);
       playerEl.current.defaultMuted = true;
       playerEl.current.muted = true;
       setVolume(0);
-      //setMuted(true);
-      //setVolume(DEFAULT_VOLUME);
-      //setMuted(true);
-      //playerEl.current.muted = true;
-      //setVolume(0);
-      
-      //setMuted(true);
     }
-    
-    /*
-    if (muted) {
-      playerEl.current.muted = true;
-      setVolume(0);
-      setMuted(true);
-    }
-    */
     
     return () => {
       playerEl.current.removeEventListener('timeupdate', handleProgress);
