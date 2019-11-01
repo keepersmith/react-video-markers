@@ -13,6 +13,7 @@ interface IProps {
   loop?: boolean;
   markers?: object[];
   timeStart?: number;
+  startMuted?: boolean;
   onPlay?: () => void;
   onPause?: () => void;
   onVolume?: (volume: number) => void;
@@ -24,17 +25,7 @@ interface IProps {
 const DEFAULT_VOLUME: number = 0.7;
 
 function VideoPlayer(props: IProps) {
-  const playerEl = useRef<HTMLVideoElement>(null);
-  const progressEl = useRef<HTMLProgressElement>(null);
-  const volumeEl = useRef<HTMLProgressElement>(null);
-
-  const [currentTime, setCurrentTime] = useState<number>(0);
-  const [videoDuration, setVideoDuration] = useState<number>(null);
-  //const [muted, setMuted] = useState<boolean>(false);
-  const [muted, setMuted] = useState<boolean>(true);
-  const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
-
-  const {
+    const {
     url,
     poster_url,
     controls = ['play', 'time', 'progress', 'volume', 'full-screen'],
@@ -45,6 +36,7 @@ function VideoPlayer(props: IProps) {
     loop = false,
     markers = [],
     timeStart = 0,
+    startMuted = false,
     onPlay = () => {},
     onPause = () => {},
     onVolume = () => {},
@@ -52,6 +44,17 @@ function VideoPlayer(props: IProps) {
     onDuration = () => {},
     onMarkerClick = () => {}
   } = props;
+  
+  
+  const playerEl = useRef<HTMLVideoElement>(null);
+  const progressEl = useRef<HTMLProgressElement>(null);
+  const volumeEl = useRef<HTMLProgressElement>(null);
+
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [videoDuration, setVideoDuration] = useState<number>(null);
+  //const [muted, setMuted] = useState<boolean>(false);
+  const [muted, setMuted] = useState<boolean>(startMuted);
+  const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
   useEffect(() => {
     playerEl.current.addEventListener('timeupdate', handleProgress);
@@ -224,17 +227,30 @@ function VideoPlayer(props: IProps) {
 
   return (
     <div className="react-video-wrap" style={{ height, width }}>
-      <video
-        ref={playerEl}
-        className="react-video-player"
-        loop={loop}
-        onClick={handlePlayerClick}
-        playsInline
-        poster={poster_url}
-        controls
-      >
-        <source src={url} type="video/mp4" />
-      </video>
+      {startMuted ? (
+        <video
+          ref={playerEl}
+          className="react-video-player"
+          loop={loop}
+          onClick={handlePlayerClick}
+          playsInline
+          poster={poster_url}
+          muted
+        >
+          <source src={url} type="video/mp4" />
+        </video>
+      ) : (
+        <video
+          ref={playerEl}
+          className="react-video-player"
+          loop={loop}
+          onClick={handlePlayerClick}
+          playsInline
+          poster={poster_url}
+        >
+          <source src={url} type="video/mp4" />
+        </video>
+      )}
       {isFullScreen ? (
         <button className="react-video-close" onClick={handleFullScreenClick}>
           Close video
