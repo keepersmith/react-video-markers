@@ -55,7 +55,9 @@ function VideoPlayer(props: IProps) {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [videoDuration, setVideoDuration] = useState<number>(null);
   //const [muted, setMuted] = useState<boolean>(false);
+  
   const [muted, setMuted] = useState<boolean>(startMuted); // should be passed in as true for iOS
+  console.log("MUTED, STARTMUTED",muted,startMuted);
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
   useEffect(() => {
