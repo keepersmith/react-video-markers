@@ -78,6 +78,12 @@ function VideoPlayer(props: IProps) {
       }
     }
 
+    if (muted) {
+      playerEl.current.muted = true;
+      setVolume(0);
+      setMuted(true);
+    }
+    
     return () => {
       playerEl.current.removeEventListener('timeupdate', handleProgress);
       playerEl.current.removeEventListener(
@@ -235,7 +241,6 @@ function VideoPlayer(props: IProps) {
           onClick={handlePlayerClick}
           playsInline
           poster={poster_url}
-          autoPlay
           muted
         >
           <source src={url} type="video/mp4" />
@@ -248,7 +253,6 @@ function VideoPlayer(props: IProps) {
           onClick={handlePlayerClick}
           playsInline
           poster={poster_url}
-          autoPlay
         >
           <source src={url} type="video/mp4" />
         </video>
