@@ -4,6 +4,7 @@ import './styles.css';
 
 interface IProps {
   url: string;
+  poster_url: string;
   controls?: string[];
   height?: string;
   width?: string;
@@ -35,6 +36,7 @@ function VideoPlayer(props: IProps) {
 
   const {
     url,
+    poster_url,
     controls = ['play', 'time', 'progress', 'volume', 'full-screen'],
     height = '360px',
     width = '640px',
@@ -228,6 +230,7 @@ function VideoPlayer(props: IProps) {
         loop={loop}
         onClick={handlePlayerClick}
         playsInline
+        poster={poster_url}
       >
         <source src={url} type="video/mp4" />
       </video>
