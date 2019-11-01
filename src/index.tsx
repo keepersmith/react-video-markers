@@ -45,18 +45,15 @@ function VideoPlayer(props: IProps) {
     onMarkerClick = () => {}
   } = props;
   
-  
   const playerEl = useRef<HTMLVideoElement>(null);
-
-  
   const progressEl = useRef<HTMLProgressElement>(null);
   const volumeEl = useRef<HTMLProgressElement>(null);
 
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [videoDuration, setVideoDuration] = useState<number>(null);
-  //const [muted, setMuted] = useState<boolean>(false);
+  const [muted, setMuted] = useState<boolean>(false);
   
-  const [muted, setMuted] = useState<boolean>(startMuted); // should be passed in as true for iOS
+  //const [muted, setMuted] = useState<boolean>(startMuted); // should be passed in as true for iOS
   console.log("MUTED, STARTMUTED",muted,startMuted);
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
@@ -85,10 +82,14 @@ function VideoPlayer(props: IProps) {
 
     if (startMuted) {
       console.log("STARTING MUTED");
+      onVolume(DEFAULT_VOLUME);
       playerEl.current.defaultMuted = true;
-      playerEl.current.muted = true;
-      setVolume(0);
+      //setVolume(DEFAULT_VOLUME);
       setMuted(true);
+      //playerEl.current.muted = true;
+      //setVolume(0);
+      
+      //setMuted(true);
     }
     
     /*
@@ -145,7 +146,9 @@ function VideoPlayer(props: IProps) {
 
   const setVolume = (value: number) => {
     playerEl.current.volume = value;
-    setMuted(!value);
+    if (value === 0) {
+      setMuted(true);
+    }
   };
 
   const handlePlayerClick = () => {
