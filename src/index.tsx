@@ -228,7 +228,6 @@ function VideoPlayer(props: IProps) {
         loop={loop}
         onClick={handlePlayerClick}
         playsInline
-        muted
       >
         <source src={url} type="video/mp4" />
       </video>
