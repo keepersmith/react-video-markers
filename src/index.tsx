@@ -47,13 +47,7 @@ function VideoPlayer(props: IProps) {
   
   
   const playerEl = useRef<HTMLVideoElement>(null);
-  if (startMuted) {
-    console.log("STARTING MUTED");
-    playerEl.current.defaultMuted = true;
-    playerEl.current.muted = true;
-    this.setVolume(0);
-    this.setMuted(true);
-  }
+
   
   const progressEl = useRef<HTMLProgressElement>(null);
   const volumeEl = useRef<HTMLProgressElement>(null);
@@ -65,6 +59,7 @@ function VideoPlayer(props: IProps) {
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
   useEffect(() => {
+    console.log("RVP BEGIN");
     playerEl.current.addEventListener('timeupdate', handleProgress);
     playerEl.current.addEventListener('durationchange', handleDurationLoaded);
     if (timeStart) {
@@ -84,6 +79,14 @@ function VideoPlayer(props: IProps) {
           onPause();
         });
       }
+    }
+
+    if (startMuted) {
+      console.log("STARTING MUTED");
+      playerEl.current.defaultMuted = true;
+      playerEl.current.muted = true;
+      this.setVolume(0);
+      this.setMuted(true);
     }
     
     /*
