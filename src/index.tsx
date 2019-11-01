@@ -56,7 +56,6 @@ function VideoPlayer(props: IProps) {
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log("RVP BEGIN");
     playerEl.current.addEventListener('timeupdate', handleProgress);
     playerEl.current.addEventListener('durationchange', handleDurationLoaded);
     if (timeStart) {
@@ -68,18 +67,15 @@ function VideoPlayer(props: IProps) {
       if (promise !== undefined) {
         promise.then(_ => {
           // Autoplay started!
-          console.log("RVP 1 GO");
         }).catch(error => {
           // Autoplay was prevented.
           // Show a "Play" button so that user can start playback.
-          console.log("RVP 1 NO GO");
           onPause();
         });
       }
     }
 
     if (startMuted) {
-      console.log("STARTING MUTED");
       playerEl.current.defaultMuted = true;
       playerEl.current.muted = true;
       setVolume(0);
@@ -105,11 +101,9 @@ function VideoPlayer(props: IProps) {
       if (promise !== undefined) {
         promise.then(_ => {
           // Autoplay started!
-          console.log("RVP 2 GO");
         }).catch(error => {
           // Autoplay was prevented.
           // Show a "Play" button so that user can start playback.
-          console.log("RVP 2 NO GO");
           onPause();
         });
       }
@@ -246,32 +240,6 @@ function VideoPlayer(props: IProps) {
         >
           <source src={url} type="video/mp4" />
         </video>
-    {/*
-      {startMuted ? (
-        <video
-          ref={playerEl}
-          className="react-video-player"
-          loop={loop}
-          onClick={handlePlayerClick}
-          playsInline
-          poster={poster_url}
-          muted
-        >
-          <source src={url} type="video/mp4" />
-        </video>
-      ) : (
-        <video
-          ref={playerEl}
-          className="react-video-player"
-          loop={loop}
-          onClick={handlePlayerClick}
-          playsInline
-          poster={poster_url}
-        >
-          <source src={url} type="video/mp4" />
-        </video>
-      )}
-      */}
       {isFullScreen ? (
         <button className="react-video-close" onClick={handleFullScreenClick}>
           Close video
