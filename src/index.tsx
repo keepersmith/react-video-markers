@@ -36,7 +36,7 @@ function VideoPlayer(props: IProps) {
     loop = false,
     markers = [],
     timeStart = 0,
-    startMuted = false,
+    startMuted = false, // default
     onPlay = () => {},
     onPause = () => {},
     onVolume = () => {},
@@ -53,7 +53,7 @@ function VideoPlayer(props: IProps) {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [videoDuration, setVideoDuration] = useState<number>(null);
   //const [muted, setMuted] = useState<boolean>(false);
-  const [muted, setMuted] = useState<boolean>(startMuted);
+  const [muted, setMuted] = useState<boolean>(startMuted); // should be passed in as true for iOS
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -235,6 +235,7 @@ function VideoPlayer(props: IProps) {
           onClick={handlePlayerClick}
           playsInline
           poster={poster_url}
+          autoPlay
           muted
         >
           <source src={url} type="video/mp4" />
@@ -247,6 +248,7 @@ function VideoPlayer(props: IProps) {
           onClick={handlePlayerClick}
           playsInline
           poster={poster_url}
+          autoPlay
         >
           <source src={url} type="video/mp4" />
         </video>
