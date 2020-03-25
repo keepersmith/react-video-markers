@@ -237,6 +237,7 @@ function VideoPlayer(props: IProps) {
           onClick={handlePlayerClick}
           playsInline
           poster={poster_url}
+          src={url}
         >
           <source src={url} type="video/mp4" />
         </video>
