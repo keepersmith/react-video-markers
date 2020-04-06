@@ -57,11 +57,24 @@ function VideoPlayer(props: IProps) {
   
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
+  // handle ESC from full screen
+  const exitHandler = () => {
+    setIsFullScreen(false);
+  }
+
   useEffect(() => {
     //console.log("RVM startFullscreen isFullScreen",startFullscreen,isFullScreen);
     //if (startFullscreen && !isFullScreen) {
     //  handleFullScreenClick();
     //}
+
+    // handle ESC from full screen
+    if (document.addEventListener) {
+      document.addEventListener('webkitfullscreenchange', exitHandler, false);
+      document.addEventListener('mozfullscreenchange', exitHandler, false);
+      document.addEventListener('fullscreenchange', exitHandler, false);
+      document.addEventListener('MSFullscreenChange', exitHandler, false);
+    }
     
     playerEl.current.addEventListener('timeupdate', handleProgress);
     playerEl.current.addEventListener('durationchange', handleDurationLoaded);
@@ -202,8 +215,9 @@ function VideoPlayer(props: IProps) {
     }
   };
 
+  /*
   const getIsFullScreen = () => {
-    console.log("RVM getIsFullScree");
+    console.log("RVM getIsFullScreen");
     if (document['fullscreenElement']) {
       console.log(" YES fullscreenElement");
       return true;
@@ -221,11 +235,12 @@ function VideoPlayer(props: IProps) {
       return false;
     }
   }
+  */
 
   const handleFullScreenClick = () => {
     const videoWrap = document.getElementsByClassName('react-video-wrap')[0];
     // JBB 4/5/2020 - pressing ESC to exit full screen does not toggle isFullScreen
-    if (getIsFullScreen()) {
+    if (isFullScreen) {
       document.body.classList.remove('react-video-full-screen');
       if (document['exitFullscreen']) {
         document['exitFullscreen']();
@@ -271,7 +286,7 @@ function VideoPlayer(props: IProps) {
         >
           <source src={url} type="video/mp4" />
         </video>
-      {getIsFullScreen() ? (
+      {isFullScreen ? (
         <button className="react-video-close" onClick={handleFullScreenClick}>
           Close video
         </button>
