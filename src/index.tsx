@@ -202,10 +202,30 @@ function VideoPlayer(props: IProps) {
     }
   };
 
+  const getIsFullScreen = () => {
+    console.log("RVM getIsFullScree");
+    if (document['fullscreenElement']) {
+      console.log(" YES fullscreenElement");
+      return true;
+    } else if (document['mozFullScreenElement']) {
+      console.log(" YES mozFullScreenElement");
+      return true;
+    } else if (document['webkitFullscreenElement']) {
+      console.log(" YES webkitFullscreenElement");
+      return true;
+    } else if (document['msFullscreenElement']) {
+      console.log(" YES msFullscreenElement");
+      return true;
+    } else {
+      console.log(" NO")
+      return false;
+    }
+  }
+
   const handleFullScreenClick = () => {
     const videoWrap = document.getElementsByClassName('react-video-wrap')[0];
     // JBB 4/5/2020 - pressing ESC to exit full screen does not toggle isFullScreen
-    if (document['fullscreenElement'] || document['mozFullScreenElement'] || document['webkitFullscreenElement'] || document['mozFullScreenElement'] || document['msFullscreenElement']) {
+    if (getIsFullScreen()) {
       document.body.classList.remove('react-video-full-screen');
       if (document['exitFullscreen']) {
         document['exitFullscreen']();
@@ -251,7 +271,7 @@ function VideoPlayer(props: IProps) {
         >
           <source src={url} type="video/mp4" />
         </video>
-      {(document['fullscreenElement'] || document['mozFullScreenElement'] || document['webkitFullscreenElement'] || document['mozFullScreenElement'] || document['msFullscreenElement']) ? (
+      {getIsFullScreen() ? (
         <button className="react-video-close" onClick={handleFullScreenClick}>
           Close video
         </button>
