@@ -62,10 +62,12 @@ function VideoPlayer(props: IProps) {
     if (getIsFullScreen()) {
       // entered full-screen mode
       //console.log("exitHandler FULL SCREEN");
+      document.body.classList.add('react-video-full-screen');
       setIsFullScreen(true);
     } else {
       // exited full-screen mode
       //console.log("exitHandler *NOT* FULL SCREEN");
+      document.body.classList.remove('react-video-full-screen');
       setIsFullScreen(false);
     }
     //handleFullScreenClick()
