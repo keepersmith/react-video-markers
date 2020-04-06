@@ -251,7 +251,7 @@ function VideoPlayer(props: IProps) {
         >
           <source src={url} type="video/mp4" />
         </video>
-      {isFullScreen ? (
+      {(document['fullscreenElement'] || document['mozFullScreenElement'] || document['webkitFullscreenElement'] || document['mozFullScreenElement'] || document['msFullscreenElement']) ? (
         <button className="react-video-close" onClick={handleFullScreenClick}>
           Close video
         </button>
