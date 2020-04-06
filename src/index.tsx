@@ -61,11 +61,11 @@ function VideoPlayer(props: IProps) {
   const exitHandler = () => {
     if (getIsFullScreen()) {
       // entered full-screen mode
-      console.log("exitHandler FULL SCREEN");
+      //console.log("exitHandler FULL SCREEN");
       setIsFullScreen(true);
     } else {
       // exited full-screen mode
-      console.log("exitHandler *NOT* FULL SCREEN");
+      //console.log("exitHandler *NOT* FULL SCREEN");
       setIsFullScreen(false);
     }
     //handleFullScreenClick()
@@ -227,21 +227,21 @@ function VideoPlayer(props: IProps) {
 
   
   const getIsFullScreen = () => {
-    console.log("RVM getIsFullScreen");
+    //console.log("RVM getIsFullScreen");
     if (document['fullscreenElement']) {
-      console.log(" YES fullscreenElement");
+      //console.log(" YES fullscreenElement");
       return true;
     } else if (document['mozFullScreenElement']) {
-      console.log(" YES mozFullScreenElement");
+      //console.log(" YES mozFullScreenElement");
       return true;
     } else if (document['webkitFullscreenElement']) {
-      console.log(" YES webkitFullscreenElement");
+      //console.log(" YES webkitFullscreenElement");
       return true;
     } else if (document['msFullscreenElement']) {
-      console.log(" YES msFullscreenElement");
+      //console.log(" YES msFullscreenElement");
       return true;
     } else {
-      console.log(" NO")
+      //console.log(" NO")
       return false;
     }
   }
