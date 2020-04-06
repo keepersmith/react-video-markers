@@ -55,9 +55,14 @@ function VideoPlayer(props: IProps) {
   const [videoDuration, setVideoDuration] = useState<number>(null);
   const [muted, setMuted] = useState<boolean>(false);
   
-  const [isFullScreen, setIsFullScreen] = useState<boolean>(startFullscreen);
+  const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
   useEffect(() => {
+    console.log("RVM startFullscreen isFullScreen",startFullscreen,isFullScreen);
+    if (startFullscreen && !isFullScreen) {
+      handleFullScreenClick();
+    }
+    
     playerEl.current.addEventListener('timeupdate', handleProgress);
     playerEl.current.addEventListener('durationchange', handleDurationLoaded);
     if (timeStart) {
