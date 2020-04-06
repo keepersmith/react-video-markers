@@ -44,7 +44,7 @@ function VideoPlayer(props: IProps) {
     onProgress = () => {},
     onDuration = () => {},
     onMarkerClick = () => {},
-    startFullscreen = false // default
+    //startFullscreen = false // default
   } = props;
   
   const playerEl = useRef<HTMLVideoElement>(null);
@@ -58,10 +58,10 @@ function VideoPlayer(props: IProps) {
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log("RVM startFullscreen isFullScreen",startFullscreen,isFullScreen);
-    if (startFullscreen && !isFullScreen) {
-      handleFullScreenClick();
-    }
+    //console.log("RVM startFullscreen isFullScreen",startFullscreen,isFullScreen);
+    //if (startFullscreen && !isFullScreen) {
+    //  handleFullScreenClick();
+    //}
     
     playerEl.current.addEventListener('timeupdate', handleProgress);
     playerEl.current.addEventListener('durationchange', handleDurationLoaded);
