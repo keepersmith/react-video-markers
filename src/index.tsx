@@ -20,6 +20,7 @@ interface IProps {
   onProgress?: (event: Event) => void;
   onDuration?: (duration: number) => void;
   onMarkerClick?: (marker: object) => void;
+  startFullscreen?: boolean;
 }
 
 const DEFAULT_VOLUME: number = 0.7;
@@ -42,7 +43,8 @@ function VideoPlayer(props: IProps) {
     onVolume = () => {},
     onProgress = () => {},
     onDuration = () => {},
-    onMarkerClick = () => {}
+    onMarkerClick = () => {},
+    startFullscreen = false // default
   } = props;
   
   const playerEl = useRef<HTMLVideoElement>(null);
@@ -53,7 +55,7 @@ function VideoPlayer(props: IProps) {
   const [videoDuration, setVideoDuration] = useState<number>(null);
   const [muted, setMuted] = useState<boolean>(false);
   
-  const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
+  const [isFullScreen, setIsFullScreen] = useState<boolean>(startFullscreen);
 
   useEffect(() => {
     playerEl.current.addEventListener('timeupdate', handleProgress);
@@ -197,7 +199,8 @@ function VideoPlayer(props: IProps) {
 
   const handleFullScreenClick = () => {
     const videoWrap = document.getElementsByClassName('react-video-wrap')[0];
-    if (isFullScreen) {
+    // JBB 4/5/2020 - pressing ESC to exit full screen does not toggle isFullScreen
+    if (document['fullscreenElement'] || document['mozFullScreenElement'] || document['webkitFullscreenElement'] || document['mozFullScreenElement'] || document['msFullscreenElement']) {
       document.body.classList.remove('react-video-full-screen');
       if (document['exitFullscreen']) {
         document['exitFullscreen']();
@@ -208,6 +211,7 @@ function VideoPlayer(props: IProps) {
       } else if (document['msExitFullscreen']) {
         document['msExitFullscreen']();
       }
+      setIsFullScreen(false);
     } else {
       document.body.classList.add('react-video-full-screen');
       if (videoWrap['requestFullscreen']) {
@@ -219,8 +223,9 @@ function VideoPlayer(props: IProps) {
       } else if (videoWrap['msRequestFullscreen']) {
         videoWrap['msRequestFullscreen']();
       }
+      setIsFullScreen(true);
     }
-    setIsFullScreen(!isFullScreen);
+    //setIsFullScreen(!isFullScreen);
   };
 
   const handleMarkerClick = (marker: object) => {
