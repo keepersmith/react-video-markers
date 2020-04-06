@@ -59,7 +59,17 @@ function VideoPlayer(props: IProps) {
 
   // handle ESC from full screen
   const exitHandler = () => {
-    setIsFullScreen(false);
+    if (getIsFullScreen()) {
+      // entered full-screen mode
+      console.log("exitHandler FULL SCREEN");
+      setIsFullScreen(true);
+    } else {
+      // exited full-screen mode
+      console.log("exitHandler *NOT* FULL SCREEN");
+      setIsFullScreen(false);
+    }
+    //handleFullScreenClick()
+    //setIsFullScreen(false);
   }
 
   useEffect(() => {
@@ -215,7 +225,7 @@ function VideoPlayer(props: IProps) {
     }
   };
 
-  /*
+  
   const getIsFullScreen = () => {
     console.log("RVM getIsFullScreen");
     if (document['fullscreenElement']) {
@@ -235,7 +245,7 @@ function VideoPlayer(props: IProps) {
       return false;
     }
   }
-  */
+  
 
   const handleFullScreenClick = () => {
     const videoWrap = document.getElementsByClassName('react-video-wrap')[0];
